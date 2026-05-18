@@ -1,0 +1,105 @@
+@use "sass:math";
+@import "../../../scss/plugin";
+
+.edit-category-selector{
+  @include border-radius($radius-pc);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid $color-border;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  .category-wrapper{
+    min-width: 0;
+    &:hover{
+      .category{
+        background-color: $bg-light;
+      }
+    }
+    @include transition(background-color  0.2s);
+
+    .category{
+      @include transition(background-color  0.1s);
+      white-space: nowrap;
+      @extend .unselectable;
+      @include border-radius(5px);
+      padding: 8px 10px;
+      flex-shrink: 0;
+      display: block;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: clamp(18px, 2.4vw, $fz-label);
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+@media (min-width: $grid-separate-width-max){
+  .edit-category-selector {
+    @include border-radius($radius-pc);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    .category-wrapper{
+      .category{
+      }
+    }
+  }
+}
+
+
+// MAX
+@media (min-width: $grid-separate-width-big) and (max-width: $grid-separate-width-max) {
+  .edit-category-selector{
+    @include border-radius($radius-pc);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    .category-wrapper{
+      .category{
+      }
+    }
+  }
+}
+
+// IPAD
+@media (min-width: $grid-separate-width-md) and (max-width: $grid-separate-width-big) {
+  .edit-category-selector{
+    @include border-radius($radius-pc);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: $grid-separate-width-sm) and (max-width: $grid-separate-width-md) {
+  .edit-category-selector{
+    //@include border-radius(0)
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .edit-category-selector{
+    //@include border-radius(0)
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 14px;
+  }
+}
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  .edit-category-selector{
+    border-color: $dark-border;
+    background-color: $dark-bg-dark;
+    border-bottom-color: $dark-border;
+    .category-wrapper {
+      &:hover{
+        .category{
+          background-color: $dark-bg;
+        }
+      }
+    }
+  }
+}

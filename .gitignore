@@ -1,0 +1,46 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Runtime data and local logs
+unotes_data/
+**/unotes_data/
+pb_data/
+**/pb_data/
+*.log
+.run/
+
+# Build outputs
+bin/
+dist/
+dev-dist/
+*.exe
+diary-pocketbase
+
+# Dependencies
+node_modules/
+
+# Local env / credentials / exports
+.env
+.env.*
+!.env.example
+!.env.example-zh-cn
+*.local
+*.sql
+archive/
+*.zip
+calendar-id
+*credentials*.json
+*service-account*.json
+calendar-events-*.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local agent state
+.agents/
+.codex/
+.omx/

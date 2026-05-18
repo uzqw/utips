@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>tab/ notification_black</title>
+    <g id="tab/-notification_black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M15,28 L15,19 C15,14.581722 18.581722,11 23,11 C27.418278,11 31,14.581722 31,19 L31,28 L34,33 L12,33 L15,28 Z" id="Bell" stroke="#4A4A4A" stroke-width="2" stroke-linejoin="round"></path>
+        <path d="M20,36 C20.6666667,37.3333333 21.6666667,38 23,38 C24.3333333,38 25.3333333,37.3333333 26,36" id="Bell-Clapper" stroke="#4A4A4A" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M23,8 L23,11" id="Bell-Top" stroke="#4A4A4A" stroke-width="2" stroke-linecap="round"></path>
+    </g>
+</svg>

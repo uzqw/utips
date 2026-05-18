@@ -1,0 +1,101 @@
+@import "../../scss/plugin";
+
+.load-more {
+  @extend .unselectable;
+  background-color: white;
+  border: 1px solid lighten($gray, 10%);
+  display: block;
+  line-height: 30px;
+  font-size: $fz-list-content;
+  text-align: center;
+  width: 40%;
+  margin: 20px auto 30px;
+  @include border-radius(5px);
+
+  &:active{
+    color: $bg-main;
+    border-color: $bg-main;
+  }
+}
+
+.end-of-diary{
+  @include box-shadow(1px 2px 4px rgba(0,0,0,0.12));
+  background-color: white;
+  @include border-radius(0 0 15px 15px);
+  text-align: center;
+  padding: 20px 0 10px;
+  img{
+    height: 45px;
+  }
+}
+
+.search-bar{
+  position: sticky;
+  top: 0;
+  background-color: $bg-searchbar;
+  padding: 8px 10px;
+  z-index: $z-header;
+  input{
+    width: 100%;
+    line-height: 25px;
+    @include border-radius();
+    padding: 5px 10px;
+    display: block;
+    border: 1px solid $color-border-highlight;
+    font-size: 1em;
+    &:focus{
+      border-color: $color-border-search-bar;
+      box-shadow: 1px 1px 5px transparentize($color-border-search-bar, 0.7);
+    }
+  }
+  .clear{
+    color: $gray;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    display: block;
+  }
+}
+
+.no-diary-list{
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+  font-size: $fz-small;
+  color: $color-main;
+  margin-bottom: 1px;
+}
+
+
+// DARK
+@media (prefers-color-scheme: dark) {
+  // SEARCH
+  .search-bar{
+    background-color: $dark-bg-dark;
+    input{
+      background-color: $dark-bg;
+      border-color: $dark-border;
+      color: $dark-text;
+    }
+  }
+  .no-diary-list{
+    background-color: $dark-bg;
+  }
+
+  .end-of-diary {
+    background-color: $dark-bg;
+  }
+
+  .diary-list-group-container{
+    background-color: $dark-bg-dark;
+  }
+  .diary-list-group{
+
+  }
+}

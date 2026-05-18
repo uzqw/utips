@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="45px" height="45px" viewBox="0 0 45 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tab/ help_black</title>
+    <g id="tab/-help_black" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M 16.5 16 C 16.5 10.5, 28.5 10.5, 28.5 16 C 28.5 20.5, 22.5 21.5, 22.5 26" stroke="#4A4A4A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle id="Oval" fill="#4A4A4A" cx="22.5" cy="34" r="2"></circle>
+    </g>
+</svg>

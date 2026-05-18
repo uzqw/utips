@@ -1,0 +1,35 @@
+.git
+.agents
+.codex
+
+# local env / credentials / data
+.env
+.env.*
+!.env.example
+**/pb_data
+*.sql
+*.log
+*.zip
+archive
+calendar-id
+*credentials*.json
+*service-account*.json
+calendar-events-*.json
+
+# dependencies and build outputs
+node_modules
+**/node_modules
+dist
+**/dist
+dev-dist
+**/dev-dist
+bin
+utips
+diary-pocketbase
+*.exe
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.idea
+.vscode

@@ -1,0 +1,231 @@
+@import "../../scss/plugin";
+
+.todo-list{
+
+}
+
+.todo-list-item{
+  @include border-radius(3px);
+  padding-left: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  &.done{
+    .content{
+      color: $text-label;
+    }
+  }
+  .checkbox-wrapper{
+    margin-top: 7px;
+    margin-right: 8px;
+  }
+  .content-wrapper{
+    padding: 8px;
+    width: 100%;
+    border-bottom: 1px solid $color-border-light;
+  }
+  .content-row{
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+  }
+  .content{
+    flex: 0 1 auto;
+    min-width: 0;
+    margin-right: 5px;
+    line-height: 1.3;
+  }
+  .note{
+    margin-right: 5px;
+    line-height: 1.3;
+    color: $text-label;
+    font-size: $fz-main;
+  }
+  .desc{
+    margin-top: 3px;
+    min-height: 16px;
+    line-height: 1.35;
+    color: $text-label;
+    font-size: $fz-small;
+    &:empty::before{
+      content: attr(data-placeholder);
+      color: lighten($text-label, 18%);
+    }
+  }
+  .todo-meta{
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .due-chip{
+    border: 0;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background-color: rgba($green, 0.12);
+    color: $green;
+    font-size: $fz-small;
+    line-height: 1.6;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    &.empty{
+      color: $text-label;
+      background-color: $bg-light;
+    }
+  }
+  .due-editor{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    input{
+      height: 24px;
+      border: 1px solid $color-border-light;
+      border-radius: 3px;
+      padding: 0 6px;
+      font-size: $fz-small;
+    }
+    button{
+      border: 0;
+      border-radius: 3px;
+      height: 24px;
+      padding: 0 8px;
+      color: $text-label;
+      background-color: $bg-light;
+      cursor: pointer;
+    }
+  }
+
+  &:hover{
+    background-color: $bg-light;
+    .content-wrapper{
+      border-bottom-color: transparent;
+    }
+  }
+}
+
+$checkbox-size: 22px;
+
+div.checkbox{
+  display: block;
+  height: $checkbox-size;
+  width: $checkbox-size;
+  @include border-radius(20px);
+  border: 1px solid $text-label;
+  background-color: white;
+  cursor: pointer;
+  &:hover{
+    border-color: $green;
+  }
+}
+
+div.checkbox.checked{
+  display: block;
+  height: $checkbox-size;
+  width: $checkbox-size;
+  @include border-radius(20px);
+  border: 2px solid $green;
+  position: relative;
+  &::after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: $checkbox-size - 8;
+    height: $checkbox-size - 8;
+    @include border-radius(20px);
+    top: 2px;
+    left: 2px;
+    background-color: $green;
+  }
+}
+
+// MOBILE
+@media (max-width: $grid-separate-width-sm) {
+  .todo-list-item{
+    padding-left: 10px;
+    .content-row{
+      align-items: stretch;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .content{
+      width: 100%;
+    }
+    .todo-meta{
+      width: 100%;
+      min-height: 34px;
+    }
+    .due-chip{
+      min-height: 32px;
+      max-width: 100%;
+    }
+    .due-editor{
+      width: 100%;
+      min-height: 34px;
+      input{
+        flex: 1 1 auto;
+        min-width: 0;
+        height: 32px;
+        font-size: 16px;
+      }
+      button{
+        flex: 0 0 auto;
+        height: 32px;
+      }
+    }
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .todo-list-item{
+    &.done{
+      .content{
+        color: $text-label;
+      }
+    }
+    .checkbox-wrapper{
+    }
+    .content-wrapper{
+      border-bottom: 1px solid $dark-border;
+    }
+    .content{
+      color: $dark-text-title;
+    }
+    .note{
+      color: $dark-text-subtitle;
+    }
+    .desc{
+      color: $dark-text-subtitle;
+    }
+    .due-chip{
+      background-color: rgba($green, 0.18);
+      &.empty{
+        color: $dark-text-subtitle;
+        background-color: $dark-bg;
+      }
+    }
+    .due-editor{
+      input{
+        color: $dark-text-title;
+        border-color: $dark-border;
+        background-color: $dark-bg;
+      }
+      button{
+        color: $dark-text-subtitle;
+        background-color: $dark-bg;
+      }
+    }
+
+    &:hover{
+      background-color: $dark-bg-nav;
+    }
+  }
+
+  div.checkbox {
+    background-color: $dark-bg;
+  }
+}

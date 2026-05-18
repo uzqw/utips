@@ -1,0 +1,23 @@
+services:
+  utips:
+    image: ${DOCKER_IMAGE:-uzqw/utips:latest}
+    container_name: ${DOCKER_CONTAINER_NAME:-utips}
+    user: "${APP_UID:-${HOST_UID:-1000}}:${APP_GID:-${HOST_GID:-1000}}"
+    command: ["serve", "--http=0.0.0.0:17172", "--dir=/app/unotes_data"]
+    ports:
+      - "${DOCKER_HOST_PORT:-17172}:17172"
+    volumes:
+      - ${DOCKER_UNOTES_DATA_PATH:-./unotes_data}:/app/unotes_data
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ:-${HOST_TZ:-UTC}}
+      TMPDIR: /app/unotes_data/tmp
+      UTIPS_ICP_BEIAN_NUMBER: ${UTIPS_ICP_BEIAN_NUMBER:-}
+      UTIPS_ADMIN_EMAIL: ${UTIPS_ADMIN_EMAIL:-}
+      UTIPS_REGISTRATION_INVITATION_CODE: ${UTIPS_REGISTRATION_INVITATION_CODE:-}
+      UTIPS_DEMO_ACCOUNT_ENABLED: ${UTIPS_DEMO_ACCOUNT_ENABLED:-true}
+      UTIPS_DEMO_ACCOUNT_EMAIL: ${UTIPS_DEMO_ACCOUNT_EMAIL:-demo@example.com}
+      UTIPS_DEMO_ACCOUNT_PASSWORD: ${UTIPS_DEMO_ACCOUNT_PASSWORD:-demo123456}
+      UTIPS_DEMO_ACCOUNT_NAME: ${UTIPS_DEMO_ACCOUNT_NAME:-演示账号}
+    restart: unless-stopped
