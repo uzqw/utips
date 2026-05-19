@@ -4,34 +4,10 @@
 
 本仓库按组件拆分目录，因为后端和前端使用不同开源协议。
 
-## 目录结构
-
-```text
-.
-├── backend/   # PocketBase 后端，MIT 协议
-├── frontend/  # 基于 KyleBing/diary 的 Vue 前端，GPL-3.0 协议
-├── LICENSE.md
-├── NOTICE.md
-└── README.md
-```
-
-## 开源协议
-
-这是一个多协议仓库：
-
-| 路径 | 协议 | 说明 |
-| --- | --- | --- |
-| `backend/` | MIT | PocketBase 后端实现，详见 `backend/LICENSE`。 |
-| `frontend/` | GPL-3.0 | 基于 `https://github.com/KyleBing/diary`，详见 `frontend/LICENSE`。 |
-
-不要把整个仓库视为单一协议项目。分发、修改或复用某个组件时，需要遵守该组件所在目录对应的协议。
-
-## 功能概览
-
-- 基于 PocketBase 的认证和数据存储。
-- 支持日记、分类、通知、待办和日历同步相关能力。
-- Vue 3 前端，基于上游 diary 项目改造。
-- 本地化部署，PocketBase 使用 SQLite，运行数据默认放在 `unotes_data/`。
+<div align="center">
+  <img src="docs/screenshots/utips-screenshot-main.png" width="600">
+  <p><i>截图1: utips主界面</i></p>
+</div>
 
 ## 部署
 
@@ -44,6 +20,13 @@ make docker-deploy
 ```
 
 `.env` 填好以后，部署只需要执行 `make docker-deploy`。默认服务地址是 `http://<server-ip>:17172`。
+
+## 功能概览
+
+- 基于 PocketBase 的认证和数据存储。
+- 支持日记、分类、通知、待办和日历同步相关能力。
+- Vue 3 前端，基于上游 diary 项目改造。
+- 本地化部署，PocketBase 使用 SQLite，运行数据默认放在 `unotes_data/`。
 
 ## 开发
 
@@ -89,3 +72,14 @@ PocketBase 运行数据默认位于仓库根目录 `unotes_data/`，该目录不
 ## English README
 
 英文版见 `README.md`。
+
+## 开源协议
+
+这是一个多协议仓库：
+
+| 路径 | 协议 | 说明 |
+| --- | --- | --- |
+| `backend/` | MIT | PocketBase 后端实现，详见 `backend/LICENSE`。 |
+| `frontend/` | GPL-3.0 | 基于 `https://github.com/KyleBing/diary`，详见 `frontend/LICENSE`。 |
+
+不要把整个仓库视为单一协议项目。分发、修改或复用某个组件时，需要遵守该组件所在目录对应的协议。

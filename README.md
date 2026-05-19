@@ -4,16 +4,24 @@ A diary application repository with a PocketBase backend and a Vue frontend.
 
 This repository is intentionally split by component because the backend and frontend use different licenses.
 
-## Repository Layout
+[![中文文档](https://img.shields.io/badge/docs-%E4%B8%AD%E6%96%87-0F766E?style=flat-square)](./README.zh-CN.md)
 
-```text
-.
-├── backend/   # PocketBase backend, MIT License
-├── frontend/  # Vue frontend based on KyleBing/diary, GPL-3.0
-├── LICENSE.md
-├── NOTICE.md
-└── README.zh-CN.md
+<div align="center">
+  <img src="docs/screenshots/utips-screenshot-main.png" width="600">
+  <p><i>Figure 1: Main interface of utips</i></p>
+</div>
+
+## Deployment
+
+**Recommended: fill in `.env`, then run `make docker-deploy`.**
+
+```bash
+cp .env.example .env
+# Edit .env and fill in the required values.
+make docker-deploy
 ```
+
+After `.env` is complete, `make docker-deploy` is the only deployment command you need. The service listens on `http://<server-ip>:17172` by default.
 
 ## Licensing
 
@@ -32,18 +40,6 @@ Do not treat the whole repository as a single-license project. When redistributi
 - Diary records, categories, notifications, and todo/calendar synchronization support.
 - Vue 3 frontend adapted from the upstream diary project.
 - Local-first deployment model with SQLite data under PocketBase `unotes_data/`.
-
-## Deployment
-
-**Recommended: fill in `.env`, then run `make docker-deploy`.**
-
-```bash
-cp .env.example .env
-# Edit .env and fill in the required values.
-make docker-deploy
-```
-
-After `.env` is complete, `make docker-deploy` is the only deployment command you need. The service listens on `http://<server-ip>:17172` by default.
 
 ## Development
 
@@ -89,3 +85,14 @@ Before publishing, rotate any credential that was ever committed to an old priva
 ## Chinese README
 
 See `README.zh-CN.md` for the Chinese version.
+
+## Licensing
+
+This is a multi-license repository:
+
+| Path | License | Notes |
+| --- | --- | --- |
+| `backend/` | MIT | PocketBase-based backend implementation. See `backend/LICENSE`. |
+| `frontend/` | GPL-3.0 | Based on `https://github.com/KyleBing/diary`. See `frontend/LICENSE`. |
+
+Do not treat the whole repository as a single-license project. When redistributing or modifying a component, follow the license for that component.
