@@ -166,7 +166,7 @@ $gap-small: 8px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         border: 1px solid $color-border;
         @include transition(all 0.3s);
-        cursor: zoom-in;
+        cursor: pointer;
         position: relative;
         
         &::-webkit-scrollbar {
@@ -187,18 +187,18 @@ $gap-small: 8px;
         }
 
         &::after {
-            content: "🔍 点击放大";
+            content: "";
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(249, 115, 22, 0.9);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
+            top: 12px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5'/%3E%3C/svg%3E") center/15px 15px no-repeat;
             opacity: 0;
             @include transition(opacity 0.3s);
             pointer-events: none;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
         }
 
         svg {
@@ -239,6 +239,20 @@ $gap-small: 8px;
         code{
             color: $dark-text;
             background-color: $dark-bg-dark;
+        }
+        .mermaid {
+            background-color: #0f172a;
+            border-color: $dark-border;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.28);
+
+            &::after {
+                background: rgba(255, 255, 255, 0.08) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5'/%3E%3C/svg%3E") center/15px 15px no-repeat;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            }
+
+            &:hover {
+                box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            }
         }
         table{
             border: 1px solid $dark-border;

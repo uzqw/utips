@@ -2,6 +2,7 @@ import { CategoryEntity } from "./types/Category.ts";
 import { AuthorizationEntity } from "./types/Authorization.ts";
 import { BillKey } from "@/view/Bill/Bill.ts";
 import { pb } from "./pocketbase";
+import { i18n } from "@/i18n";
 import { translateText } from "@/i18n/text";
 
 const AUTHORIZATION_NAME = 'Authorization' // 存储用户信息的 localStorage name，跟 Manager 通用
@@ -209,17 +210,28 @@ function dateProcess(dateString: string): DateUtilityObject {
         timeLabel = '凌晨'
     }
 
+    const isEnglishLocale = i18n.global.locale.value === 'en-US'
+    const monthName = isEnglishLocale
+        ? new Intl.DateTimeFormat('en-US', { month: 'short' }).format(date)
+        : `${month}月`
+    const localizedDate = isEnglishLocale
+        ? `${monthName} ${day}`
+        : `${padNumberWith0(month)}月${padNumberWith0(day)}日`
+    const localizedDateFull = isEnglishLocale
+        ? `${monthName} ${day}, ${year}`
+        : `${year}年${month}月${day}日`
+
     return {
         year,
         day,
         month,
-        weekday: EnumWeekDay[week],
-        weekShort: EnumWeekDayShort[week],
-        dateShort: `${padNumberWith0(month)}-${padNumberWith0(day)}`,
-        date: `${padNumberWith0(month)}月${padNumberWith0(day)}日`,
-        dateFull: `${year}年${month}月${day}日`,
-        dateFullSlash: `${year}/${month}/${day}`,
-        timeLabel: timeLabel,
+        weekday: translateText(EnumWeekDay[week]),
+        weekShort: translateText(EnumWeekDayShort[week]),
+        dateShort: localizedDate,
+        date: localizedDate,
+        dateFull: localizedDateFull,
+        dateFullSlash: `${year}-${padNumberWith0(month)}-${padNumberWith0(day)}`,
+        timeLabel: translateText(timeLabel),
         time: `${padNumberWith0(hour)}:${padNumberWith0(minutes)}`
     }
 }
