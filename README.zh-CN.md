@@ -33,73 +33,40 @@
 - Vue 3 前端，基于上游 diary 项目改造。
 - 本地化部署，PocketBase 使用 SQLite，运行数据默认放在 `unotes_data/`。
 
-## 后端开发
-
-环境要求：
-
-- Go 1.25 或更高版本。
-
-启动后端：
-
-```bash
-cd backend
-go mod download
-go run . serve --http=0.0.0.0:17171 --dir=../unotes_data
-```
-
-也可以在仓库根目录运行：
-
-```bash
-make backend-run
-```
-
-构建后端：
-
-```bash
-make backend-build
-```
-
-PocketBase 运行数据默认位于仓库根目录 `unotes_data/`，该目录不会提交到 Git。Docker 和本地后端都使用这个目录，方便数据库长期兼容。
-
-## 前端开发
-
-环境要求：
-
-- 与当前前端工具链兼容的 Node.js 和 npm。
-
-启动前端：
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-也可以在仓库根目录运行：
-
-```bash
-make frontend-dev
-```
-
-构建前端：
-
-```bash
-make frontend-build
-```
-
-构建产物 `frontend/dist/` 不会提交到 Git。
-
 ## 部署
 
 **重点：先把 `.env` 填好，然后直接运行 `make docker-deploy`。**
 
 ```bash
-cp .env.example .env
+cp .env.example-zh-cn .env
 # 编辑 .env，填好必需配置。
 make docker-deploy
 ```
 
-`.env` 填好以后，部署只需要执行 `make docker-deploy`。该命令会拉取已发布的 `uzqw/utips:latest` 一体化镜像，并以重启策略启动服务。默认服务地址是 `http://<server-ip>:17172`；如果要修改宿主机端口，改 `.env` 里的 `DOCKER_HOST_PORT`。运行数据保存在 `DOCKER_UNOTES_DATA_PATH` 配置的宿主机目录中，默认是仓库根目录 `./unotes_data`。
+`.env` 填好以后，部署只需要执行 `make docker-deploy`。默认服务地址是 `http://<server-ip>:17172`。
+
+## 开发
+
+环境要求：
+
+- 后端：Go 1.25 或更高版本。
+- 前端：与当前前端工具链兼容的 Node.js 和 npm。
+
+在仓库根目录运行：
+
+```bash
+make backend-dev
+make frontend-dev
+```
+
+在仓库根目录构建：
+
+```bash
+make backend-build
+make frontend-build
+```
+
+PocketBase 运行数据默认位于仓库根目录 `unotes_data/`，该目录不会提交到 Git。构建产物 `frontend/dist/` 也不会提交到 Git。
 
 ## 项目治理
 

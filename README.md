@@ -33,65 +33,9 @@ Do not treat the whole repository as a single-license project. When redistributi
 - Vue 3 frontend adapted from the upstream diary project.
 - Local-first deployment model with SQLite data under PocketBase `unotes_data/`.
 
-## Backend Development
-
-Requirements:
-
-- Go 1.25 or later.
-
-Run the backend:
-
-```bash
-cd backend
-go mod download
-go run . serve --http=0.0.0.0:17171 --dir=../unotes_data
-```
-
-Or from the repository root:
-
-```bash
-make backend-run
-```
-
-Build the backend:
-
-```bash
-make backend-build
-```
-
-PocketBase runtime data is stored in repo-root `unotes_data/` by default and is intentionally ignored by Git. This same directory is used by Docker and local backend runs for database compatibility.
-
-## Frontend Development
-
-Requirements:
-
-- Node.js and npm compatible with the frontend toolchain.
-
-Run the frontend:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Or from the repository root:
-
-```bash
-make frontend-dev
-```
-
-Build the frontend:
-
-```bash
-make frontend-build
-```
-
-The generated `frontend/dist/` directory is ignored by Git.
-
 ## Deployment
 
-**Recommended deployment path: configure `.env`, then run `make docker-deploy`.**
+**Recommended: fill in `.env`, then run `make docker-deploy`.**
 
 ```bash
 cp .env.example .env
@@ -99,7 +43,30 @@ cp .env.example .env
 make docker-deploy
 ```
 
-After `.env` is complete, `make docker-deploy` is the only command you need for deployment. It pulls the published `uzqw/utips:latest` image and starts the all-in-one service with a restart policy. The service listens on `http://<server-ip>:17172` by default; change `DOCKER_HOST_PORT` in `.env` if you need a different host port. Runtime data is stored in the host directory configured by `DOCKER_UNOTES_DATA_PATH`, defaulting to repo-root `./unotes_data`.
+After `.env` is complete, `make docker-deploy` is the only deployment command you need. The service listens on `http://<server-ip>:17172` by default.
+
+## Development
+
+Requirements:
+
+- Backend: Go 1.25 or later.
+- Frontend: Node.js and npm compatible with the frontend toolchain.
+
+Run from the repository root:
+
+```bash
+make backend-dev
+make frontend-dev
+```
+
+Build from the repository root:
+
+```bash
+make backend-build
+make frontend-build
+```
+
+PocketBase runtime data is stored in repo-root `unotes_data/` by default and is intentionally ignored by Git. The generated `frontend/dist/` directory is also ignored by Git.
 
 ## Project Governance
 
