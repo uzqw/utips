@@ -1,11 +1,11 @@
 # utips
 
-这是一个日记应用仓库，后端使用 PocketBase，前端基于 Vue。
-
-本仓库按组件拆分目录，因为后端和前端使用不同开源协议。
+> 这是一个日记应用仓库，后端使用 PocketBase，前端基于 Vue。
+> 本仓库按组件拆分目录，因为后端和前端使用不同开源协议。
+> 优化后后的docker镜像小于40MB。
 
 <div align="center">
-  <img src="docs/screenshots/utips-screenshot-main.png" width="600">
+  <img src="docs/screenshots/utips-screenshot-main-zh-cn.png" width="600">
   <p><i>截图1: utips主界面</i></p>
 </div>
 

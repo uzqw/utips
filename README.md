@@ -1,8 +1,8 @@
 # utips
 
-A diary application repository with a PocketBase backend and a Vue frontend.
-
-This repository is intentionally split by component because the backend and frontend use different licenses.
+> A diary application repository with a PocketBase backend and a Vue frontend.
+> This repository is intentionally split by component because the backend and frontend use different licenses.
+> Optimized: Docker image size < 40MB.
 
 [![中文文档](https://img.shields.io/badge/docs-%E4%B8%AD%E6%96%87-0F766E?style=flat-square)](./README.zh-CN.md)
 
@@ -22,17 +22,6 @@ make docker-deploy
 ```
 
 After `.env` is complete, `make docker-deploy` is the only deployment command you need. The service listens on `http://<server-ip>:17172` by default.
-
-## Licensing
-
-This is a multi-license repository:
-
-| Path | License | Notes |
-| --- | --- | --- |
-| `backend/` | MIT | PocketBase-based backend implementation. See `backend/LICENSE`. |
-| `frontend/` | GPL-3.0 | Based on `https://github.com/KyleBing/diary`. See `frontend/LICENSE`. |
-
-Do not treat the whole repository as a single-license project. When redistributing or modifying a component, follow the license for that component.
 
 ## Features
 
