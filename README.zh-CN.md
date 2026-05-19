@@ -89,57 +89,17 @@ make frontend-build
 
 构建产物 `frontend/dist/` 不会提交到 Git。
 
-## Docker
+## 部署
 
-已发布的镜像是 `uzqw/utips`。这是一个一体化镜像：先构建 Vue 前端，再把静态产物复制到 `pb_public/`，最后由 PocketBase 后端通过同一个端口提供服务。运行层使用 `scratch`，镜像中只包含静态 Go 二进制、前端静态文件、CA 证书和时区数据。
-
-使用已发布镜像快速启动：
-
-```bash
-docker run -d \
-  --name utips \
-  --user "$(id -u):$(id -g)" \
-  -p 17172:17172 \
-  -v ./unotes_data:/app/unotes_data \
-  uzqw/utips:latest
-```
-
-也可以使用 Docker Compose：
+**重点：先把 `.env` 填好，然后直接运行 `make docker-deploy`。**
 
 ```bash
 cp .env.example .env
-docker compose up -d
+# 编辑 .env，填好必需配置。
+make docker-deploy
 ```
 
-Linux 上使用宿主机目录挂载时，容器会按宿主机当前用户 UID/GID 运行，避免 SQLite 数据库只读。默认服务地址为 `http://<server-ip>:17172`。如果要修改宿主机端口，改 `.env` 里的 `DOCKER_HOST_PORT`。运行数据保存在 `DOCKER_UNOTES_DATA_PATH` 配置的宿主机目录中，默认是仓库根目录 `./unotes_data`。
-
-开发镜像时可以本地构建：
-
-```bash
-docker compose -f compose.yaml -f compose.build.yaml up --build
-```
-
-### Docker 镜像发布
-
-Docker Hub 发布由 `.github/workflows/docker.yml` 处理。推送符合 `v*.*.*` 格式的 Git tag 时，GitHub Actions 会构建并推送：
-
-- `uzqw/utips:<tag>`，例如 `uzqw/utips:v0.1.0`
-- `uzqw/utips:latest`
-- `uzqw/utips:sha-<commit>`
-
-需要在 GitHub 仓库 Secrets 中配置：
-
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN`
-
-发布镜像：
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-完整开源部署流程、数据库导入路径和兼容策略见 `docs/deploy.md`。
+`.env` 填好以后，部署只需要执行 `make docker-deploy`。该命令会拉取已发布的 `uzqw/utips:latest` 一体化镜像，并以重启策略启动服务。默认服务地址是 `http://<server-ip>:17172`；如果要修改宿主机端口，改 `.env` 里的 `DOCKER_HOST_PORT`。运行数据保存在 `DOCKER_UNOTES_DATA_PATH` 配置的宿主机目录中，默认是仓库根目录 `./unotes_data`。
 
 ## 项目治理
 

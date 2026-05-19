@@ -89,57 +89,17 @@ make frontend-build
 
 The generated `frontend/dist/` directory is ignored by Git.
 
-## Docker
+## Deployment
 
-The published image is `uzqw/utips`. It is an all-in-one image: the Vue frontend is built into static files, copied into `pb_public/`, and served by the PocketBase backend on a single port. The runtime stage uses `scratch`, so the image contains only the static Go binary, frontend assets, CA certificates, and timezone data.
-
-Quick start with the published image:
-
-```bash
-docker run -d \
-  --name utips \
-  --user "$(id -u):$(id -g)" \
-  -p 17172:17172 \
-  -v ./unotes_data:/app/unotes_data \
-  uzqw/utips:latest
-```
-
-Or use Docker Compose:
+**Recommended deployment path: configure `.env`, then run `make docker-deploy`.**
 
 ```bash
 cp .env.example .env
-docker compose up -d
+# Edit .env and fill in the required values.
+make docker-deploy
 ```
 
-If `unotes_data` is a host bind mount on Linux, the container runs as your host UID/GID so SQLite can write to the database files. Default ports are intentionally outside the most common development defaults: frontend dev `17170`, backend dev `17171`, and all-in-one Docker `17172`. The service listens on `http://<server-ip>:17172` by default. Change `DOCKER_HOST_PORT` in `.env` to expose a different host port. Runtime data is stored in the host directory configured by `DOCKER_UNOTES_DATA_PATH` and defaults to repo-root `./unotes_data`.
-
-Build locally when developing the image:
-
-```bash
-docker compose -f compose.yaml -f compose.build.yaml up --build
-```
-
-### Docker Image Release
-
-Docker Hub publishing is handled by `.github/workflows/docker.yml`. When a Git tag matching `v*.*.*` is pushed, GitHub Actions builds and pushes:
-
-- `uzqw/utips:<tag>` such as `uzqw/utips:v0.1.0`
-- `uzqw/utips:latest`
-- `uzqw/utips:sha-<commit>`
-
-Required GitHub repository secrets:
-
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN`
-
-Create a release image:
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-See `docs/deploy.md` for the full open-source deployment guide, database import path, and compatibility policy.
+After `.env` is complete, `make docker-deploy` is the only command you need for deployment. It pulls the published `uzqw/utips:latest` image and starts the all-in-one service with a restart policy. The service listens on `http://<server-ip>:17172` by default; change `DOCKER_HOST_PORT` in `.env` if you need a different host port. Runtime data is stored in the host directory configured by `DOCKER_UNOTES_DATA_PATH`, defaulting to repo-root `./unotes_data`.
 
 ## Project Governance
 
