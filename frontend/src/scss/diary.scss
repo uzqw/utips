@@ -39,18 +39,26 @@ body {
     display: flex;
 
     .diary-list-container {
-      border-right: 1px solid $color-border;
       overflow-y: auto;
       width: $menu-panel-big;
       flex-shrink: 0;
       background-color: $bg-light;
       position: relative;
+      direction: rtl;
+
+      & > * {
+        direction: ltr;
+      }
     }
 
     .diary-container {
       display: block;
       overflow-y: auto;
       flex-grow: 1;
+
+      &::-webkit-scrollbar-track {
+        background-color: $bg-light;
+      }
     }
   }
 }
@@ -62,7 +70,6 @@ body {
     display: flex;
 
     .diary-list-container {
-      border-right: 1px solid $color-border;
       width: 400px;
     }
 

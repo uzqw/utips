@@ -85,6 +85,11 @@ textarea{
       }
       &::-webkit-scrollbar-thumb {
         border: 1px solid #cbcbcb;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.3);
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
       }
     }
     .editor-float-btn{
@@ -288,6 +293,11 @@ textarea{
     }
     &::-webkit-scrollbar-thumb {
       border: 1px solid $dark-border-active !important;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.3);
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.5) !important;
+      }
     }
   }
 

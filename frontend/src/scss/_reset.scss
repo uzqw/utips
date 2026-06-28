@@ -54,7 +54,7 @@ tt {
 
 ::-webkit-scrollbar {
     z-index: 50;
-    width: 2px;
+    width: 10px;
     height: 10px;
 }
 
@@ -66,9 +66,13 @@ tt {
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;
-    background-color: $color-border-highlight;
-    transition: all .2s;
+    background-color: rgba(0, 0, 0, 0.35);
+    transition: background-color .2s;
     cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.55);
+    }
 }
 
 

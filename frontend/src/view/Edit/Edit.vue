@@ -257,7 +257,7 @@ onMounted(()=>{
             // CTRL + S 保存
             if ((event.ctrlKey || event.metaKey) && (typeof event.key === 'string' && event.key.toLowerCase() === 's')) {
                 event.preventDefault()
-                saveDiary()
+                saveDiary(true)
             } else if (typeof event.key === 'string' && (event.key.toLowerCase() === 'escape' || event.key.toLowerCase() === 'esc')) {
                 // ESC 返回预览
                 event.preventDefault()
@@ -802,7 +802,7 @@ function getDiary(diaryId: string) {
             router.push({name: 'List'})
         })
 }
-function saveDiary() {
+function saveDiary(isCtrlS = false) {
     if (diaryStore.isHideContent) {
         popMessage('warning', '请退出当前隐藏模式，再进行保存操作', ()=>{}, 2)
         return
@@ -833,7 +833,7 @@ function saveDiary() {
     if (isNew.value){
         diaryApi
             .add(requestData)
-            .then(processAfterSaveDiary)
+            .then(res => processAfterSaveDiary(res, isCtrlS))
             .catch(err => {
                 popMessage('danger', err.message, () => {
                     diaryStore.isSavingDiary = false
@@ -843,7 +843,7 @@ function saveDiary() {
     } else {
         diaryApi
             .modify(requestData)
-            .then(processAfterSaveDiary)
+            .then(res => processAfterSaveDiary(res, isCtrlS))
             .catch(err => {
                 popMessage('danger', err.message, () => {
                     diaryStore.isSavingDiary = false
@@ -854,7 +854,7 @@ function saveDiary() {
 }
 
 // 保存日记后要操作的
-function processAfterSaveDiary(res: ResponseDiaryAdd){
+function processAfterSaveDiary(res: ResponseDiaryAdd, isCtrlS = false){
     diaryStore.isSavingDiary = false
     diaryStore.isDiaryNeedToBeSaved = false
 
@@ -899,10 +899,19 @@ function processAfterSaveDiary(res: ResponseDiaryAdd){
 
     isNew.value = false
 
-    router.push({
-        name: 'Detail',
-        params: {id: newId}
-    })
+    if (isCtrlS) {
+        if (wasNew) {
+            router.replace({
+                name: 'Edit',
+                params: {id: newId}
+            })
+        }
+    } else {
+        router.push({
+            name: 'Detail',
+            params: {id: newId}
+        })
+    }
 }
 function createDiary() {
     isNew.value = true
