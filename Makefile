@@ -16,7 +16,7 @@ HOST_TZ := $(shell if [ -n "$$TZ" ]; then echo "$$TZ"; elif [ -r /etc/timezone ]
 COMPOSE_ENV := HOST_UID=$(HOST_UID) HOST_GID=$(HOST_GID) HOST_TZ=$(HOST_TZ) DOCKER_IMAGE=$(DOCKER_LATEST_IMAGE) DOCKER_HOST_PORT=$(DOCKER_PORT)
 DOCKER_COMPOSE ?= $(shell if docker compose version >/dev/null 2>&1; then echo "docker compose"; elif command -v docker-compose >/dev/null 2>&1; then echo "docker-compose"; else echo "docker compose"; fi)
 
-.PHONY: help backend-build backend-dev frontend-dev frontend-build docker-build docker-run docker-push docker-deploy docker-down
+.PHONY: help backend-build backend-dev frontend-dev frontend-build docker-build docker-run docker-push docker-deploy docker-deploy-arm docker-down
 
 help:
 	@echo "Usage: make <target>"
@@ -29,8 +29,9 @@ help:
 	@echo "  docker-build    Build the local Docker image ($(DOCKER_LOCAL_IMAGE)); default no cache"
 	@echo "  docker-run      Run the local Docker image on 0.0.0.0:$(DOCKER_PORT)"
 	@echo "  docker-push     Tag $(DOCKER_LOCAL_IMAGE) as remote local, TAG, latest, then push them, example: make docker-push TAG=v0.1.9"
-	@echo "  docker-deploy   Pull and run $(DOCKER_LATEST_IMAGE) on 0.0.0.0:$(DOCKER_PORT) with restart policy"
-	@echo "  docker-down     Stop Docker Compose services"
+	@echo "  docker-deploy       Pull and run $(DOCKER_LATEST_IMAGE) on 0.0.0.0:$(DOCKER_PORT) with restart policy"
+	@echo "  docker-deploy-arm   Same as docker-deploy, for ARM64 servers (e.g. Raspberry Pi, ARM VPS)"
+	@echo "  docker-down         Stop Docker Compose services"
 	@echo ""
 	@echo "Docker Compose command: $(DOCKER_COMPOSE)"
 	@echo "Host timezone fallback: $(HOST_TZ)"
@@ -65,6 +66,13 @@ docker-deploy:
 	mkdir -p $(UNOTES_DATA_DIR)/tmp
 	chmod u+rwX $(UNOTES_DATA_DIR) $(UNOTES_DATA_DIR)/tmp
 	$(COMPOSE_ENV) $(DOCKER_COMPOSE) pull
+	$(COMPOSE_ENV) $(DOCKER_COMPOSE) up -d --force-recreate
+
+docker-deploy-arm:
+	@echo "Deploying on ARM64 (multi-arch image auto-selects arm64 variant)..."
+	mkdir -p $(UNOTES_DATA_DIR)/tmp
+	chmod u+rwX $(UNOTES_DATA_DIR) $(UNOTES_DATA_DIR)/tmp
+	$(COMPOSE_ENV) DOCKER_DEFAULT_PLATFORM=linux/arm64 $(DOCKER_COMPOSE) pull
 	$(COMPOSE_ENV) $(DOCKER_COMPOSE) up -d --force-recreate
 
 docker-down:

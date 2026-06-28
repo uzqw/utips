@@ -23,6 +23,14 @@ make docker-deploy
 
 After `.env` is complete, `make docker-deploy` is the only deployment command you need. The service listens on `http://<server-ip>:17172` by default.
 
+### ARM Deployment
+
+The Docker image supports both `linux/amd64` and `linux/arm64` architectures. For ARM servers (e.g. Raspberry Pi, ARM VPS):
+
+```bash
+make docker-deploy-arm
+```
+
 ## Features
 
 - PocketBase-based authentication and data storage.

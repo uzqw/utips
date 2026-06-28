@@ -21,6 +21,14 @@ make docker-deploy
 
 `.env` 填好以后，部署只需要执行 `make docker-deploy`。默认服务地址是 `http://<server-ip>:17172`。
 
+### ARM 部署
+
+Docker 镜像同时支持 `linux/amd64` 和 `linux/arm64` 架构。在 ARM 服务器上部署（如树莓派、ARM VPS）：
+
+```bash
+make docker-deploy-arm
+```
+
 ## 功能概览
 
 - 基于 PocketBase 的认证和数据存储。
