@@ -61,24 +61,24 @@
                 <!--时钟-->
                 <Clock class="pr-6" v-if="!uiStore.isInMobileMode && uiStore.insets.windowsWidth > 1352"/>
 
-                <!--详情按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Detail' && diaryStore.currentDiary">
-                    <div
-                        v-if="diaryStore.currentDiary && diaryStore.currentDiary.is_public"
-                        class="clipboard-trigger"
-                        :data-clipboard="shareUrl">
-                        <TabIcon alt="分享"/>
-                    </div>
-                    <div @click="toastShow">
-                        <TabIcon alt="删除"/>
-                    </div>
-                    <div @click="editDiary">
-                        <TabIcon alt="编辑"/>
-                    </div>
+                <!--分享-->
+                <div
+                    v-if="route.name === 'Detail' && diaryStore.currentDiary && diaryStore.currentDiary.is_public"
+                    class="clipboard-trigger"
+                    :data-clipboard="shareUrl">
+                    <TabIcon alt="分享"/>
                 </div>
 
-                <!--编辑按钮-->
-                <div class="nav-btn-wrapper" v-if="route.name === 'Edit' || route.name ==='EditNew'">
+                <!--删除-->
+                <div @click="toastShow" v-if="route.name === 'Detail' || ((route.name === 'Edit' || route.name === 'EditNew') && !isNewDiary)">
+                    <TabIcon alt="删除"/>
+                </div>
+
+                <!--编辑 / 确定保存-->
+                <div @click="editDiary" v-if="route.name === 'Detail'">
+                    <TabIcon alt="编辑"/>
+                </div>
+                <div class="nav-btn-wrapper" v-else-if="route.name === 'Edit' || route.name === 'EditNew'">
                     <div @click="diaryRecover" v-if="diaryStore.isDiaryEditorContentHasChanged">
                         <TabIcon alt="恢复"/>
                     </div>
@@ -92,6 +92,7 @@
                     </div>
                 </div>
 
+                <!--消息（铃铛）-->
                 <div class="notification-wrapper" @click.stop>
                     <div class="notification-trigger" :title="t('nav.messages')" @click="toggleNotifications">
                         <TabIcon alt="消息"/>
@@ -126,11 +127,8 @@
                     </div>
                 </div>
 
-                <div
-                    v-if="(uiStore.isInMobileMode && route.name !== 'Detail' && !uiStore.isMenuShowed)
-                    || !uiStore.isInMobileMode"
-                    @click="addNewDiary"
-                >
+                <!--新建-->
+                <div @click="addNewDiary">
                     <TabIcon alt="添加"/>
                 </div>
             </div>

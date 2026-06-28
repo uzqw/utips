@@ -11,13 +11,25 @@
                          v-for="(item, index) in categoryStore.categoryAll" :key="index"
                          :style="categoryMenuItemStyle(item)"
                          @click="categoryFilter(item)"
-                    >{{ translateCategoryName(item) }}</div>
-                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: filterStore.isFilterShared}]" @click="toggleFilterShared">{{ $tt('共享') }}</div>
+                    >
+                        <span class="first-letter">{{ getFirstLetter(translateCategoryName(item)) }}</span>
+                        <span class="full-text">{{ getRestText(translateCategoryName(item)) }}</span>
+                    </div>
+                    <div :class="['navbar-category-list-item', 'share-item' ,'ml-3', {active: filterStore.isFilterShared}]" @click="toggleFilterShared">
+                        <span class="first-letter">{{ getFirstLetter($tt('共享')) }}</span>
+                        <span class="full-text">{{ getRestText($tt('共享')) }}</span>
+                    </div>
 
                 </div>
                 <div class="navbar-category-list-special">
-                    <div class="navbar-category-list-item special" @click="setFilteredCategoriesAll">{{ $tt('全选') }}</div>
-                    <div class="navbar-category-list-item special" @click="setFilteredCategoriesClean" >{{ $tt('清选') }}</div>
+                    <div class="navbar-category-list-item special" @click="setFilteredCategoriesAll">
+                        <span class="first-letter">{{ getFirstLetter($tt('全选')) }}</span>
+                        <span class="full-text">{{ getRestText($tt('全选')) }}</span>
+                    </div>
+                    <div class="navbar-category-list-item special" @click="setFilteredCategoriesClean" >
+                        <span class="first-letter">{{ getFirstLetter($tt('清选')) }}</span>
+                        <span class="full-text">{{ getRestText($tt('清选')) }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -38,6 +50,13 @@ const uiStore = useUIStore();
 const categoryStore = useCategoryStore()
 const filterStore = useFilterStore()
 const diaryStore = useDiaryStore()
+
+const getFirstLetter = (text: string) => {
+    return text ? text.charAt(0) : ''
+}
+const getRestText = (text: string) => {
+    return text ? text.slice(1) : ''
+}
 
 function toggleFilterShared(){
     filterStore.SET_IS_FILTERED_SHARED(!filterStore.isFilterShared)
@@ -101,7 +120,7 @@ $nav-btn-height: 15px;
     height: $height-navbar;
     //padding: ($height-navbar - $nav-btn-height * 2)/2;
     .navbar-category-list-item{
-        color: transparentize(white, 0.5);
+        color: #ffffff;
     }
 }
 .navbar-category-list{
@@ -121,12 +140,27 @@ $nav-btn-height: 15px;
     height: $nav-btn-height;
     font-weight: normal;
     line-height: $nav-btn-height;
-    color: transparentize(white, 0.6);
+    color: #ffffff;
     @extend .btn-like;
+    display: flex;
+    align-items: center;
+
+    .first-letter {
+        display: inline-block;
+    }
+    
+    .full-text {
+        display: inline-block;
+        vertical-align: top;
+        max-width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: max-width 0.2s ease-in-out, opacity 0.2s ease-in-out, margin-left 0.2s ease-in-out;
+    }
 
     &.special{
         font-weight: bold;
-        color: transparentize($color-main, 0.4);
+        color: #ffffff;
     }
     &.active{
         color: white;
@@ -138,15 +172,35 @@ $nav-btn-height: 15px;
     }
     &:hover{
         font-weight: bold;
-        color: rgba(255,255,255,0.6);
+        color: #ffffff;
         &.active.share-item{
             color: white;
         }
         &.special{
-            color: transparentize($color-main, 0.2);
+            color: #ffffff;
         }
     }
 
+}
+
+@media (max-width: 1366px) {
+    .navbar-category-list-item {
+        .full-text {
+            max-width: 0 !important;
+            opacity: 0 !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            pointer-events: none;
+        }
+        &:hover {
+            .full-text {
+                max-width: 100px !important;
+                opacity: 1 !important;
+                margin-left: 2px !important;
+                pointer-events: auto;
+            }
+        }
+    }
 }
 
 $height-indicator: 8px;
